@@ -11,14 +11,18 @@ const occupationFactorMapping = {
  * @param {String} occupation
  * @returns {Number} occupationFactor
  */
-const getOccupationFactor = (occupation) => {};
+const getOccupationFactor = (occupation) => {
+  return occupationFactorMapping[occupation];
+};
 
 /**
  * Get amount of years till the pension age
  * @param {Number} age
  * @returns {Number} amount of years till pension
  */
-const getYearsTillPension = (age) => {};
+const getYearsTillPension = (age) => {
+  return pensionAge - age;
+};
 
 /**
  * Calculate the gross and net premium
@@ -32,8 +36,10 @@ const getYearsTillPension = (age) => {};
  * @returns
  */
 export const calculatePremium = (data) => {
+  let yearlyNetPremium = yearlyGrossPremium / 1.21;
+  let yearlyGrossPremium = data.yearlyIncome * getOccupationFactor(data.occupation)  * getYearsTillPension(data.age);
   return {
-    grossPremium: 350,
-    netPremium: 250,
+    grossPremium: Math.round(yearlyGrossPremium / 12),
+    netPremium: Math.round(yearlyNetPremium / 12),
   };
 };
