@@ -29,9 +29,23 @@ const validateForm = (e) => {
   var isValid = pristine.validate();
 
   if (!isValid) {
-    console.log(pristine.getErrors());
-
+    errors(pristine.getErrors());
     return;
+  }
+
+  const incomeEl = document.querySelector(selectors.income);
+  const occupationEl = document.querySelector(selectors.occupation);
+  const dobEl = document.querySelector(selectors.dob);
+  
+  const formData = {
+    occupation: occupationEl.value,
+    birthdate: dobEl.value,
+    age: getAge(dobEl.value),
+    yearlyIncome: incomeEl.value,s
+  };
+
+  renderResultPage(formData, calculatePremium(formData));
+  toggleResultPage();
   }
 
   const occupationEl = document.querySelector(selectors.occupation);
