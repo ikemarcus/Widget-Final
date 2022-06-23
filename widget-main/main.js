@@ -61,7 +61,6 @@ const validateForm = (e) => {
 
   renderResultPage(formData);
   toggleResultPage();
-};
 
 /**
  * Bind submit to the form
